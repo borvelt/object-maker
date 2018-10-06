@@ -5,7 +5,7 @@
     "name": "borvelt",
     "email": "borvelt@gmail.com"
   },
-  "license": "ISC",
+  "license": "MIT",
   "repository": "https://github.com/borvelt/object-maker.git",
   "description": "create object with string",
   "private": true,
