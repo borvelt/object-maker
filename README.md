@@ -29,3 +29,7 @@ merge(info1, info2)
 //   }
 // }
 ```
+## Test
+run `npm test` it will pass all test cases.
+## license
+MIT
