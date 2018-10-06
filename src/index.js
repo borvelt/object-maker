@@ -1,34 +1,29 @@
 import invariant from 'invariant'
 
-export const searchDotExpression = '\\.'
+export const searchExpression = '.'
 
 export const isString = string => typeof string === typeof ''
 
-export const isDotBeginningOfString = string =>
-  string.search(searchDotExpression) === 0
-
-export const isDotEndOfString = string =>
-  string.search(searchDotExpression) === string.length - 1
-
 export const isDottedString = string =>
-  removeExtraDots(string).length ? true : false
+  removeExtraDots(string).indexOf(searchExpression) !== -1 ? true : false
 
-export const removeExtraDots = string => {
-  if (isDotBeginningOfString(string)) {
-    string = string.substring(1, string.length)
-  }
-  if (isDotEndOfString(string)) {
-    string = string.substring(0, -1)
-  }
-  return string
-}
+export const removeExtraDots = string =>
+  string
+    .split(searchExpression)
+    .filter(item => item.length > 0)
+    .join(searchExpression)
+
+export const extractKeys = string =>
+  removeExtraDots(string)
+    .split(searchExpression)
+    .reverse()
 
 export default (string, objectValue) => {
   invariant(
     isString(string) && isDottedString(string),
-    'objectDot except string.',
+    'objectMaker except to get string.',
   )
-  let keys = string.split('.').reverse()
+  let keys = extractKeys(string)
   return keys
     .map((key, index) => (index === 0 ? { [key]: objectValue } : { [key]: {} }))
     .reduce((acc, cur) => {
