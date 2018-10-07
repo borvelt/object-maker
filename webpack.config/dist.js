@@ -11,6 +11,7 @@ module.exports = {
     chunkFilename: '[name].objectMaker.js',
     publicPath: '/',
     library: 'objectMaker',
+    globalObject: 'this',
     libraryTarget: 'umd',
   },
   externals: [],
