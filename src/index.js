@@ -16,8 +16,28 @@ export const extractKeys = string =>
     .split(searchExpression)
     .reverse()
 
+export const mapStringToObject = (string, object) => {
+  if (!isString(string) || !isDottedString(string)) {
+    return object
+  }
+  let keys = extractKeys(string).reverse()
+  keys.forEach(key => {
+    try {
+      console.log(object)
+      object = object[key]
+      if(typeof object === typeof undefined) {
+        console.log(key)
+        throw Error('Undefined value reached.')
+      }
+    } catch (e) {
+      return undefined
+    }
+  })
+  return object
+}
+
 export default (string, objectValue) => {
-  if(!isString(string) || !isDottedString(string)) {
+  if (!isString(string) || !isDottedString(string)) {
     return objectValue
   }
   let keys = extractKeys(string)

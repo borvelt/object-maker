@@ -4,6 +4,7 @@ import objectMaker, {
   isDottedString,
   removeExtraDots,
   extractKeys,
+  mapStringToObject,
 } from '../index'
 
 describe('Object Maker', () => {
@@ -52,5 +53,17 @@ describe('Object Maker', () => {
         package: { author: { name: 'borvelt' } },
       })
     })
+  })
+})
+
+describe('Map dotted string to object', () => {
+  it('should get object value correctly', () => {
+    let string = 'package.author.name'
+    let object = { package: { author: { name: 'borvelt' } } }
+    expect(mapStringToObject(string, object)).toEqual('borvelt')
+    expect(mapStringToObject('', object)).toEqual(object)
+    expect(mapStringToObject('package.author.surname', object)).toEqual(
+      undefined,
+    )
   })
 })
