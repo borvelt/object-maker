@@ -17,14 +17,14 @@ export const extractKeys = string =>
     .reverse()
 
 export const mapStringToObject = (string, object) => {
-  if (!isString(string) || !isDottedString(string)) {
+  if (!isString(string)) {
     return object
   }
   let keys = extractKeys(string).reverse()
   keys.forEach(key => {
     try {
       object = object[key]
-      if(typeof object === typeof undefined) {
+      if (typeof object === typeof undefined) {
         throw Error('Undefined value reached.')
       }
     } catch (e) {
@@ -35,7 +35,7 @@ export const mapStringToObject = (string, object) => {
 }
 
 export default (string, objectValue) => {
-  if (!isString(string) || !isDottedString(string)) {
+  if (!isString(string)) {
     return objectValue
   }
   let keys = extractKeys(string)

@@ -53,6 +53,11 @@ describe('Object Maker', () => {
         package: { author: { name: 'borvelt' } },
       })
     })
+    it('should create one level depth object', () => {
+      expect(objectMaker('package', 'object-maker')).toEqual({
+        package: 'object-maker',
+      })
+    })
   })
 })
 
@@ -61,9 +66,10 @@ describe('Map dotted string to object', () => {
     let string = 'package.author.name'
     let object = { package: { author: { name: 'borvelt' } } }
     expect(mapStringToObject(string, object)).toEqual('borvelt')
-    expect(mapStringToObject('', object)).toEqual(object)
-    expect(mapStringToObject('package.author.surname', object)).toEqual(
-      undefined,
-    )
+    expect(mapStringToObject('', object)).toBeUndefined()
+    expect(mapStringToObject('package.author.surname', object)).toBeUndefined()
+  })
+  it('should work with on level depth', () => {
+    expect(mapStringToObject('counter', { counter: 10 })).toEqual(10)
   })
 })
