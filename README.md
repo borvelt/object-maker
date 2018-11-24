@@ -44,7 +44,7 @@ const info = {
       }
   }
 }
-console.log(mapStringToObject('package.author.email.gitRepo', info))
+console.log(mapStringToObject('package.author.gitRepo', info))
 // -> https://github.com/borvelt
 ```
 Careful `mapStringToObject` works case-sensitive.
