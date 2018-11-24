@@ -1,11 +1,9 @@
-import invariant from 'invariant'
-
 export const searchExpression = '.'
 
 export const isString = string => typeof string === typeof ''
 
 export const isDottedString = string =>
-  removeExtraDots(string).indexOf(searchExpression) !== -1 ? true : false
+  removeExtraDots(string).indexOf(searchExpression) !== -1
 
 export const removeExtraDots = string =>
   string
@@ -18,11 +16,28 @@ export const extractKeys = string =>
     .split(searchExpression)
     .reverse()
 
+export const mapStringToObject = (string, object) => {
+  if (!isString(string)) {
+    return object
+  }
+  let keys = extractKeys(string).reverse()
+  keys.forEach(key => {
+    try {
+      object = object[key]
+      if (typeof object === typeof undefined) {
+        throw Error('Undefined value reached.')
+      }
+    } catch (e) {
+      return undefined
+    }
+  })
+  return object
+}
+
 export default (string, objectValue) => {
-  invariant(
-    isString(string) && isDottedString(string),
-    'objectMaker except to get string.',
-  )
+  if (!isString(string)) {
+    return objectValue
+  }
   let keys = extractKeys(string)
   return keys
     .map((key, index) => (index === 0 ? { [key]: objectValue } : { [key]: {} }))
